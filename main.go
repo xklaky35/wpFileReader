@@ -25,9 +25,9 @@ type Gauge struct {
 }
 
 
-func LoadData() (Data, error){
+func LoadData(path string) (Data, error){
 	var data Data  
-	f, err := os.ReadFile("/data/data.json")
+	f, err := os.ReadFile(path)
 	if err != nil {
 		return data, err
 	}
@@ -37,9 +37,9 @@ func LoadData() (Data, error){
 	return data, nil
 }
 
-func LoadConfig() (Config, error){
+func LoadConfig(path string) (Config, error){
 	var config Config 
-	f, err := os.ReadFile("/config.json")
+	f, err := os.ReadFile(path)
 	if err != nil {
 		return config, err
 	}
@@ -49,14 +49,14 @@ func LoadConfig() (Config, error){
 	return config, nil
 }
 
-func WriteData(d *Data) error {
+func WriteData(d *Data, path string) error {
 
 	data, err := json.Marshal(d)
 	if err != nil {
 		return err
 	}
 	
-	err = os.WriteFile("/data/data.json", data, 0666)
+	err = os.WriteFile(path, data, 0666)
 	if err != nil{
 		return err
 	}
